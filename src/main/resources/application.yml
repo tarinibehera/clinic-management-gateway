@@ -1,0 +1,35 @@
+server:
+  port: 15050
+spring:
+  application:
+    name: clinic-management-gateway
+
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:15030/eureka 
+zuul:
+  prefeix: /gateway
+  routes:
+    user:
+      path: /user/**
+      serviceId: clinic-management-user
+    appointment:
+      path: /appointment/**
+      serviceId: clinic-management-appointment
+      
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+            
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+      
+            
